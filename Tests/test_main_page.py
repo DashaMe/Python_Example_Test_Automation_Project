@@ -1,3 +1,4 @@
+from Pages.basket_page import BasketPage
 from Pages.main_page import MainPage
 from Pages.login_page import LoginPage
 
@@ -20,3 +21,12 @@ def test_guest_should_see_login_link(browser):
     page = MainPage(browser, link)
     page.open()
     page.should_be_login_link()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/"
+    main_page = MainPage(browser, link)
+    main_page.open()
+    main_page.go_to_basket()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_be_empty_basket()
